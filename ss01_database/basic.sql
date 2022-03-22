@@ -66,6 +66,21 @@ from 	khach_hang ;
 select 	ho_ten 
 from 	khach_hang 
 group by ho_ten;
+
+-- cách 3: 
+SELECT 	ho_ten
+FROM 	khach_hang
+WHERE 	ho_ten not IN (
+		SELECT ho_ten
+		FROM khach_hang
+		GROUP BY ho_ten
+		HAVING COUNT(ho_ten) > 1
+		)
+union 
+SELECT 	ho_ten
+FROM 	khach_hang
+GROUP BY ho_ten
+HAVING 	COUNT(ho_ten) > 1;
 -- câu 9 
  select 	month(ngay_lam_hop_dong) as thang, 
 			count(month(ngay_lam_hop_dong)) as so_luong_khach_hang
