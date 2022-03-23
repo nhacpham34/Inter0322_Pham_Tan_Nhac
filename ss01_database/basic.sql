@@ -192,9 +192,9 @@ where 	hello.so_hop_dong <=3;
     
 -- câu 16
 delete 	from 	nhan_vien
-where	(
+where ma_nhan_vien in	(
 		select 	ma_nhan_vien 
-        from 	nhan_vien 
+        from 	(select * from nhan_vien ) as nv
 		where 	ma_nhan_vien not in	(
 				select 	ma_nhan_vien 
                 from 	hop_dong
@@ -206,8 +206,8 @@ where	(
 	update 	khach_hang
     set 	ma_loai_khach = 1
     where 	ma_khach_hang in (
-					select 	khach_hang.ma_khach_hang 
-                    from 	khach_hang
+					select 	kh.ma_khach_hang 
+                    from 	(select * from khach_hang) as kh
 					inner join (
 							select 	ma_khach_hang, sum(dich_vu.chi_phi_thue) as tong_thanh_toan 
                             from 	hop_dong
@@ -215,13 +215,13 @@ where	(
 							where 	year(ngay_ket_thuc) = 2021
 							group by	 ma_khach_hang
                             ) as hello
-					on hello.ma_khach_hang = khach_hang.ma_khach_hang
-					where 	khach_hang.ma_loai_khach = 2 
+					on hello.ma_khach_hang = kh.ma_khach_hang
+					where 	kh.ma_loai_khach = 2 
 							and hello.tong_thanh_toan >= 10000000
 					);
 -- câu 18: 
 	delete 	from 	khach_hang
-    where	ma_khach_hang = (
+    where	ma_khach_hang in (
 			select 	ma_khach_hang 
             from 	hop_dong 
 			where 	year(ngay_ket_thuc) < 2021
@@ -232,7 +232,7 @@ where	(
     set 	gia = gia*2
     where	ma_dich_vu_di_kem in(
 					select 	hello.ma_dich_vu_di_kem 
-                    from 	dich_vu_di_kem inner join	(
+                    from (select * from dich_vu_di_kem)  as	dich_vu_di_kem inner join	(
 								select  hop_dong_chi_tiet.ma_dich_vu_di_kem 
 										,sum(hop_dong_chi_tiet.so_luong) as so_lan
 								from 	hop_dong
