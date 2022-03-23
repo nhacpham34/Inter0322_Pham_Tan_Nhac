@@ -141,30 +141,38 @@ from 	(
 			from 		hop_dong 
 			inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
 			group by 	ma_dich_vu_di_kem) as max1 
-inner join (select max(max2.so_luong_dich_vu_di_kem) as max from (select 	ma_dich_vu_di_kem 
-		,sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
-		from 	hop_dong  
-		inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-		group by 	ma_dich_vu_di_kem ) as max2 ) as max3 on max3.max = max1.so_luong_dich_vu_di_kem
+inner join (
+		select 	max(max2.so_luong_dich_vu_di_kem) as max 
+        from 	(
+				select 	ma_dich_vu_di_kem 
+						,sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
+				from 	hop_dong  
+				inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+				group by 	ma_dich_vu_di_kem
+				) 	as max2 
+            ) 	as max3 on max3.max = max1.so_luong_dich_vu_di_kem
 inner join dich_vu_di_kem on  max1.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem;
 
 -- câu 14:
 
-select * 
-from	(
-		select 	hop_dong.ma_hop_dong, loai_dich_vu.ten_loai_dich_vu
-				, dich_vu_di_kem.ten_dich_vu_di_kem 
-                , count(dich_vu_di_kem.ma_dich_vu_di_kem) as so_lan_su_dung
-		from 	hop_dong 
-		inner join 	dich_vu on hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
-		inner join 	loai_dich_vu on dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
-		inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-		inner join 	dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
-		group by 	dich_vu_di_kem.ma_dich_vu_di_kem 
-		) as hello
-
-where 	so_lan_su_dung =1
-order by 	ma_hop_dong;
+SELECT 
+    *
+FROM
+    (SELECT 
+        hop_dong.ma_hop_dong,
+            loai_dich_vu.ten_loai_dich_vu,
+            dich_vu_di_kem.ten_dich_vu_di_kem,
+            COUNT(dich_vu_di_kem.ma_dich_vu_di_kem) AS so_lan_su_dung
+    FROM
+        hop_dong
+    INNER JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    INNER JOIN loai_dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    INNER JOIN hop_dong_chi_tiet ON hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+    INNER JOIN dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+    GROUP BY dich_vu_di_kem.ma_dich_vu_di_kem) AS hello
+WHERE
+    so_lan_su_dung = 1
+ORDER BY ma_hop_dong;
 
 
 -- câu 15
