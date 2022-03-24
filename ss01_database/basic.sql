@@ -16,7 +16,8 @@ where 	(YEAR(CURDATE())-YEAR(ngay_sinh)) >= 18
 -- câu 4:
 SELECT 	hop_dong.ma_khach_hang, khach_hang.ho_ten, count(hop_dong.ma_khach_hang) AS so_lan_dat_phong 
 FROM 	hop_dong , khach_hang
-WHERE 	hop_dong.ma_khach_hang = khach_hang.ma_khach_hang and khach_hang.ma_loai_khach = 1
+inner join loai_khach on loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+WHERE 	hop_dong.ma_khach_hang = khach_hang.ma_khach_hang and loai_khach.ten_loai_khach = "Diamond"
 GROUP BY hop_dong.ma_khach_hang
 ORDER BY so_lan_dat_phong ASC;
 -- câu 5:
@@ -130,29 +131,28 @@ where	khach_hang.ma_loai_khach = 1
                         and month(ngay_lam_hop_dong) <= 6  
                         )
  group by 	hop_dong.ma_hop_dong;
- -- câu 13
- 
-select 	dich_vu_di_kem.ma_dich_vu_di_kem 
-		, ten_dich_vu_di_kem
-		,so_luong_dich_vu_di_kem
-from 	(		
-			select 		ma_dich_vu_di_kem ,
-						sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
-			from 		hop_dong 
-			inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-			group by 	ma_dich_vu_di_kem) as max1 
-inner join (
-		select 	max(max2.so_luong_dich_vu_di_kem) as max 
-        from 	(
-				select 	ma_dich_vu_di_kem 
-						,sum(hop_dong_chi_tiet.so_luong) as so_luong_dich_vu_di_kem
-				from 	hop_dong  
-				inner join 	hop_dong_chi_tiet on hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
-				group by 	ma_dich_vu_di_kem
-				) 	as max2 
-            ) 	as max3 on max3.max = max1.so_luong_dich_vu_di_kem
-inner join dich_vu_di_kem on  max1.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem;
 
+-- câu 13: 
+CREATE VIEW v_dv_max AS
+SELECT 
+		dvdk.ma_dich_vu_di_kem,
+        ten_dich_vu_di_kem,
+		SUM(hdct.so_luong) AS so_luong
+FROM
+		hop_dong_chi_tiet as hdct 
+INNER JOIN		dich_vu_di_kem as dvdk ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+GROUP BY ma_dich_vu_di_kem;
+
+SELECT 
+    *
+FROM
+    v_dv_max
+WHERE
+    so_luong = (SELECT MAX(so_luong) FROM v_dv_max);
+
+
+
+		
 -- câu 14:
 
 SELECT 
