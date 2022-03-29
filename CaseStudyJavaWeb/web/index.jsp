@@ -13,8 +13,25 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+          integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+          crossorigin="anonymous">
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+          integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+          crossorigin="anonymous">
+
+  </script>
   <link rel="stylesheet" href="./src/style.css">
   <title>Furama</title>
+  <style>
+    .nav_item {
+      color: white;
+      font-size: 20px;
+      height: 30px;
+    }
+  </style>
 </head>
 <body>
 <div class="app">
@@ -65,18 +82,18 @@
 
     </nav>
   </header>
-  <div class="container-fluid">
-    <div id="body_bg" class="row body_bg">
-      <div class="col-sm-3">
+  <div class="container-fluid" style=" background-image: linear-gradient( 210deg,#da94ff, #84c1ff );">
+    <div id="" class="row ">
+      <div class="col-sm-3 body_bg">
         <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Nhân viên</a>
+          <li class="nav-item nav_item">
+            <a class="nav-link nav_item active" href="#">Nhân viên</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Khách hàng</a>
+          <li class="nav-item nav_item">
+            <a class="nav-link nav_item" href="#">Khách hàng</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sản phẩm</a>
+          <li class="nav-item nav_item">
+            <a class="nav-link nav_item" href="#">Sản phẩm</a>
           </li>
         </ul>
       </div>
@@ -280,7 +297,7 @@
                 &copy; 2022 Copyright. Made With
                 <i class="fas fa-heart text-danger"></i>
                 by
-                <span class="text-success">CodeAndCreate</span>
+                <span class="text-success">PTN</span>
               </p>
             </div>
           </div>
@@ -290,6 +307,5 @@
   </footer>
 </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
 </html>

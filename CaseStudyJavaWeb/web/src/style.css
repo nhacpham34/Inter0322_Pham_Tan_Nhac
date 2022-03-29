@@ -31,6 +31,19 @@ h2 {
     background-color: red;
     background-image: linear-gradient(to bottom , #f8f9fa,  #3d90e3 );
 }
+
+.body_bg {
+    background-color: red;
+    background-image: linear-gradient( #f8f9fa,  #3d90e3 );
+}
+
+.nav_item {
+    color: white;
+    font-size: 24px;
+    text-transform: uppercase;
+    height: 30px;
+}
+
 .nav_padding{
     padding: 0 4rem;
     display: flex;
