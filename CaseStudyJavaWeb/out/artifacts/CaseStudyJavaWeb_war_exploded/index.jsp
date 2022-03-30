@@ -5,6 +5,7 @@
   Time: 7:56 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,7 +41,7 @@
       <div class="header_top">
         <img class="logo_img" src="./image/logo-mona.png">
         <h1 class="resort_name">Furama Resort</h1>
-        <h4 class="name">Phạm Nhạc</h4>
+        <h4 class="name"></h4>
       </div>
     </div>
     <nav class=" navbar navbar-expand-lg navbar-light bg-light">
@@ -82,7 +83,7 @@
 
     </nav>
   </header>
-  <div class="container-fluid" style=" background-image: linear-gradient( 210deg,#da94ff, #84c1ff );">
+  <div class="container-fluid" style=" background-image: linear-gradient( 210deg,#da94ff, #84c1ff ); min-height: 700px;">
     <div id="" class="row ">
       <div class="col-sm-3 body_bg">
         <ul class="nav flex-column">
@@ -201,7 +202,7 @@
           <button type="submit" class="btn btn-primary">Add Employee</button>
         </form>
         <!--        Form thêm nhân viên        -->
-        <form class="form_input display-block">
+        <form class="form_input display-none">
           <h2 class="text-center">Thêm mới nhân viên</h2>
           <div class="form-group form_input row ">
             <label for="inputNameEpl" class="col-sm-2 col-form-label">Họ Tên:</label>
@@ -283,7 +284,34 @@
 
           <button type="submit" class="btn btn-primary">Add Employee</button>
         </form>
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Day</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">SDT</th>
+            <th scope="col">Email</th>
+            <th scope="col">Dịa Chỉ</th>
+          </tr>
+          </thead>
+          <tbody>
+          <c:forEach items="${listp}" var="c">
+            <tr>
+              <th scope="row">${c.id}</th>
+              <td>${c.name}</td>
+              <td>${c.dateOfBirth}</td>
+              <td>${c.sex}</td>
+              <td>${c.sdt}</td>
+              <td>${c.email}</td>
+              <td>${c.address}</td>
+            </tr>
+          </c:forEach>
 
+          </tbody>
+
+        </table>
       </div>
     </div>
   </div>

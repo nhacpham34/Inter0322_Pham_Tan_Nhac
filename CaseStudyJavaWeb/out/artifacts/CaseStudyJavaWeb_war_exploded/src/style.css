@@ -27,21 +27,12 @@ h2 {
     margin: 0;
 }
 
-#body_bg {
-    background-color: red;
-    background-image: linear-gradient(to bottom , #f8f9fa,  #3d90e3 );
-}
-
-.body_bg {
-    background-color: red;
-    background-image: linear-gradient( #f8f9fa,  #3d90e3 );
-}
-
 .nav_item {
-    color: white;
+    color: black;
     font-size: 24px;
+    padding: 4px 0;
+    margin: auto;
     text-transform: uppercase;
-    height: 30px;
 }
 
 .nav_padding{
