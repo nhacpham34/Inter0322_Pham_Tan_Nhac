@@ -22,6 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.getIdMax();
     }
 
+    @Override
+    public List<Customer> getCustomerListPage(int pageIndex, int pageSize) {
+        return customerRepository.getCustomerListPage(pageIndex,pageSize);
+    }
+
 
    /* @Override
     public void addCustomerIndex(int index, Customer customer) {
@@ -37,6 +42,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomerId(Customer customer, int id) {
         customerRepository.updateCustomerId(customer, id);
+    }
+
+    @Override
+    public int countSearch() {
+        return customerRepository.countSearch();
     }
 
     @Override

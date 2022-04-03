@@ -5,3 +5,8 @@ function onDelete(id) {
 function onEdit(id) {
     document.getElementById(id+"").value = id;
 }
+
+function activePage(id) {
+    document.getElementById("page"+id).className = "active";
+
+}

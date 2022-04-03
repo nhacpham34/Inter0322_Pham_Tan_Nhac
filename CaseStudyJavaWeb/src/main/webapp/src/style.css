@@ -75,4 +75,9 @@ td .btn {
     display: flex;
 }
 
+.pagination {
+    justify-content: center;
+}
+
+
 

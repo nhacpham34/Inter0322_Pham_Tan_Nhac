@@ -33,12 +33,12 @@
                     <tr>
                         <th scope="col">STT</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Day</th>
+                        <th scope="col">Ngày sinh</th>
                         <th scope="col">CMND</th>
                         <th scope="col">SDT</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Education</th>
-                        <th scope="col">Position</th>
+                        <th scope="col">Học vấn</th>
+                        <th scope="col">Chức vụ</th>
                         <th scope="col">Lương</th>
                         <th scope="col"></th>
                         <th scope="col"></th>

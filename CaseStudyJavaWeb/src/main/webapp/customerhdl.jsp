@@ -74,6 +74,7 @@
                         </div>
 
                     </div>
+                    <input type="hidden" name="index" value="1">
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>

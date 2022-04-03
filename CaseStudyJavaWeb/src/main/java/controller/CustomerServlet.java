@@ -1,6 +1,4 @@
 package controller;
-
-import dao.DAO;
 import model.Customer;
 import service.CustomerService;
 import service.CustomerServiceImpl;
@@ -11,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = "/showCustomer")
 public class CustomerServlet extends HttpServlet {
     //  Triển khai Dependence Injection
     private CustomerService customerService = new CustomerServiceImpl();
+    private int pageSize = 5;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,14 +24,17 @@ public class CustomerServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create" :
-                addNewCustomer(request,response);
+            case "create":
+                addNewCustomer(request, response);
                 break;
-            case "delete" :
-                deleteCustomer(request,response);
+            case "delete":
+                deleteCustomer(request, response);
                 break;
             case "update":
-                updateCustomer(request,response);
+                updateCustomer(request, response);
+                break;
+            case "search":
+                getCustomerListPage(request,response);
                 break;
             default:
                 getCustomerList(request,response);
@@ -58,8 +59,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             case "update":
                 goUpdate(request,response);
                 break;
+            case "search":
+                getCustomerListPage(request,response);
             default:
-                getCustomerList(request,response);
+                getCustomerListPage(request,response);
                 break;
         }
     }
@@ -67,8 +70,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
     private void getCustomerList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
         request.setAttribute("listp", customerService.getCustomerList());
 
@@ -93,13 +94,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         customerService.addCustomerList(customer);
         request.setAttribute("message" , "Thêm thành công!");
 //        tới trang list customer
-        getCustomerList(request,response);
+        getCustomerListPage(request,response);
 
     }
 
     private void goUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-
+        int index = Integer.parseInt(request.getParameter("index"));
+        request.setAttribute("indexPage" , index);
         request.setAttribute("customer", customerService.getIdCustomer(id));
         request.getRequestDispatcher("/customerEdit.jsp").forward(request, response);
     }
@@ -118,9 +120,28 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         Customer customer = new Customer(id,name, dateOfBirth,idCard,sex,sdt,email,typeCustomer,address);
         customerService.updateCustomerId(customer, id);
         request.setAttribute("message" , "Sửa thành công!");
-//        tới trang list customer
-        getCustomerList(request,response);
 
+//        tới trang list customer
+        getCustomerListPage(request,response);
+
+    }
+
+
+    private void getCustomerListPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int index = Integer.parseInt(request.getParameter("index"));
+        if (index == 0) {
+            index = 1;
+        }
+        int count = customerService.countSearch();
+        int engPage = count / pageSize;
+        if(count % pageSize != 0) {
+            engPage++;
+        }
+        request.setAttribute("countPage", engPage);
+        request.setAttribute("indexPage", index);
+        request.setAttribute("pageSize", pageSize);
+        request.setAttribute("listp", customerService.getCustomerListPage(index, pageSize));
+        request.getRequestDispatcher("/customer.jsp").forward(request, response);
     }
 
 

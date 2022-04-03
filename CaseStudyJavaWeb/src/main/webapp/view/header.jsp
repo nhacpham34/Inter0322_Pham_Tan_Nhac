@@ -38,7 +38,7 @@
                             Customer
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="/showCustomer">Quản lí khách hàng</a>
+                            <a class="dropdown-item" href="/showCustomer?index=1">Quản lí khách hàng</a>
                             <a class="dropdown-item" href="/showCustomer?action=create">Thêm khách hàng</a>
                         </div>
                     </li>
@@ -49,8 +49,9 @@
                         <a class="nav-link" href="#">Contract</a>
                     </li>
                 </ul>
-                <form class="d-flex col-4">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex col-4" method="post" action="/showCustomer">
+                    <input class="form-control me-2" name="txtSearch" type="search" placeholder="Search" aria-label="Search">
+                    <input type="hidden" name="action" value="search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>

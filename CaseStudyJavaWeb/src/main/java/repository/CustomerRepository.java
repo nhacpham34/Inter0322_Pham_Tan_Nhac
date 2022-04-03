@@ -1,9 +1,6 @@
 package repository;
 
-import dao.DAO;
 import model.Customer;
-
-import java.io.Serializable;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +15,35 @@ public class CustomerRepository {
         List<Customer> customerList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = this.baseRepository.getConnection().prepareStatement("SELECT * FROM khach_hang");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                customerList.add(new Customer(  rs.getInt(1),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(6),
+                        rs.getString(5),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(2),
+                        rs.getString(9)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerList;
+    }
+
+    public List<Customer> getCustomerListPage(int pageIndex, int pageSize) {
+        List<Customer> customerList = new ArrayList<>();
+        try {
+            String queryListPage = "with x as(SELECT *, row_number() over (order by ma_khach_hang asc) as r  from khach_hang )\n" +
+                    "select  * from x where  r between  ((? * ? ) - ? + 1) and ? * ?";
+            PreparedStatement preparedStatement = this.baseRepository.getConnection().prepareStatement(queryListPage);
+            preparedStatement.setInt(1, pageIndex);
+            preparedStatement.setInt(2 ,pageSize);
+            preparedStatement.setInt(3, pageSize);
+            preparedStatement.setInt(4, pageIndex);
+            preparedStatement.setInt(5, pageSize);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 customerList.add(new Customer(  rs.getInt(1),
@@ -130,5 +156,20 @@ public class CustomerRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+//    phân trang
+    public int countSearch() {
+        try {
+        PreparedStatement preparedStatement = this.baseRepository.getConnection().prepareStatement("SELECT count(*) FROM khach_hang");
+        ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
 }

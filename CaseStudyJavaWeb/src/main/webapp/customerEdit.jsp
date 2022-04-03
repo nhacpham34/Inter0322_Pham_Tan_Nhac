@@ -73,6 +73,7 @@
                         </div>
 
                     </div>
+                    <input type="hidden" name="index" value="${indexPage}">
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </form>
         </div>
